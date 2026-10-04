@@ -1,0 +1,154 @@
+{
+  "assignment": "3 - Private Freshdesk connector",
+  "verified_at": "2026-10-04T19:56:11.870Z",
+  "transport": "MCP stdio using the official SDK client and a separate server process",
+  "data": "10 fictional tickets; no live Freshdesk account or model was used",
+  "live_freshdesk_verified": false,
+  "checks_passed": 11,
+  "checks": [
+    {
+      "name": "MCP handshake discovers five read-only tools with JSON schemas",
+      "passed": true
+    },
+    {
+      "name": "Configuration reports demo mode without exposing the runtime key",
+      "passed": true
+    },
+    {
+      "name": "API-key authentication succeeds after respecting 429 Retry-After",
+      "passed": true
+    },
+    {
+      "name": "List pagination returns two distinct, correctly ordered pages",
+      "passed": true
+    },
+    {
+      "name": "Structured search identifies exactly two urgent open payment tickets",
+      "passed": true
+    },
+    {
+      "name": "Default projection omits descriptions and explicit contact/custom fields",
+      "passed": true
+    },
+    {
+      "name": "Opt-in ticket text is marked untrusted; no write action is available",
+      "passed": true
+    },
+    {
+      "name": "Missing ticket returns an explicit MCP error instead of empty success",
+      "passed": true
+    },
+    {
+      "name": "Query injection is rejected before any provider request",
+      "passed": true
+    },
+    {
+      "name": "Wrong API key is rejected once, without unsafe authentication retries",
+      "passed": true
+    },
+    {
+      "name": "All provider operations are GET-only and diagnostics contain no key",
+      "passed": true
+    }
+  ],
+  "elapsed_ms": 1634,
+  "provider_requests": [
+    {
+      "method": "GET",
+      "path": "/api/v2/tickets",
+      "query": {
+        "per_page": "1",
+        "page": "1"
+      },
+      "authenticated": true,
+      "status": 429
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/tickets",
+      "query": {
+        "per_page": "1",
+        "page": "1"
+      },
+      "authenticated": true,
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/tickets",
+      "query": {
+        "updated_since": "2026-09-01T00:00:00Z",
+        "page": "1",
+        "per_page": "3",
+        "order_by": "updated_at",
+        "order_type": "asc"
+      },
+      "authenticated": true,
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/tickets",
+      "query": {
+        "updated_since": "2026-09-01T00:00:00Z",
+        "page": "2",
+        "per_page": "3",
+        "order_by": "updated_at",
+        "order_type": "asc"
+      },
+      "authenticated": true,
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/search/tickets",
+      "query": {
+        "query": "\"status:2 AND priority:4 AND tag:'payment'\"",
+        "page": "1"
+      },
+      "authenticated": true,
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/tickets/1001",
+      "query": {},
+      "authenticated": true,
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/tickets/1010",
+      "query": {},
+      "authenticated": true,
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/tickets/9999",
+      "query": {},
+      "authenticated": true,
+      "status": 404
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/tickets",
+      "query": {
+        "per_page": "1",
+        "page": "1"
+      },
+      "authenticated": false,
+      "status": 401
+    }
+  ],
+  "merchant_triage": {
+    "urgent_open_payment_ticket_ids": [
+      1001,
+      1005
+    ],
+    "next_step": "Human operator verifies failure reasons in an authorized payment system before any recovery action.",
+    "payments_retried": 0,
+    "refunds_issued": 0,
+    "customers_contacted": 0
+  }
+}

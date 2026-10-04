@@ -1,0 +1,134 @@
+
+> razorpay-freshdesk-mcp@1.0.0 verify
+> npm run typecheck && npm test && npm run demo
+
+
+> razorpay-freshdesk-mcp@1.0.0 typecheck
+> tsc -p tsconfig.json --noEmit
+
+
+> razorpay-freshdesk-mcp@1.0.0 test
+> npm run build && node --test --test-reporter=spec dist/test/*.test.js
+
+
+> razorpay-freshdesk-mcp@1.0.0 build
+> tsc -p tsconfig.json
+
+✔ live configuration uses HTTPS and conservative explicit defaults (1.550196ms)
+✔ demo configuration requires an explicit numeric loopback address (0.439565ms)
+✔ rejects unsafe or placeholder live domain: http://merchant.freshdesk.com (1.053923ms)
+✔ rejects unsafe or placeholder live domain: merchant.freshdesk.com.attacker.example (0.342141ms)
+✔ rejects unsafe or placeholder live domain: merchant.freshdesk.com/path (0.346569ms)
+✔ rejects unsafe or placeholder live domain: merchant.freshdesk.com:8443 (0.140978ms)
+✔ rejects unsafe or placeholder live domain: 127.0.0.1 (0.302886ms)
+✔ rejects unsafe or placeholder live domain: your-subdomain.freshdesk.com (0.157699ms)
+✔ rejects unsafe demo URL: http://localhost:12345/api/v2 (0.632051ms)
+✔ rejects unsafe demo URL: http://0.0.0.0:12345/api/v2 (0.478028ms)
+✔ rejects unsafe demo URL: http://example.com/api/v2 (2.054315ms)
+✔ rejects unsafe demo URL: https://127.0.0.1:12345/api/v2 (0.378759ms)
+✔ rejects unsafe demo URL: http://127.0.0.1:12345/other (0.3055ms)
+✔ rejects unsafe demo URL: http://username:password@127.0.0.1:12345/api/v2 (0.150796ms)
+✔ rejects unsafe demo URL: http://127.0.0.1:12345/api/v2?query=anything (0.312794ms)
+✔ live mode forbids a custom URL even when it is HTTPS (0.404478ms)
+✔ demo mode cannot silently use a live tenant (0.194239ms)
+✔ missing and malformed credentials fail without echoing their value (0.65248ms)
+✔ numeric settings validate both bounds and integer syntax (0.776846ms)
+✔ misspelled demo setting is an explicit error (0.176906ms)
+✔ authenticated list returns bounded summaries and follows page metadata (56.330122ms)
+✔ list final page and empty window are explicit successes without a next page (22.804358ms)
+✔ full list page 300 reports unknown completeness instead of implying an exhaustive export (10.387621ms)
+✔ get excludes sensitive explicit fields and description unless opted in (9.335581ms)
+✔ opt-in description is bounded plain text marked as untrusted (7.016885ms)
+✔ missing upstream optional fields are marked unavailable, not guessed (6.174975ms)
+✔ custom status is preserved without pretending it is a built-in status (5.894763ms)
+✔ search structured filters return exact urgent payment matches (15.316639ms)
+✔ search date boundaries and agent/group fields use documented semantics (9.591378ms)
+✔ search caps pagination at 300 matches and communicates truncation (13.526716ms)
+✔ search excludes archived fixtures and preserves true empty results (13.0704ms)
+✔ invalid input fails before any network request (3.359344ms)
+✔ upstream wrong shapes, mismatched IDs, and impossible totals fail explicitly (15.30177ms)
+✔ foreign pagination links are never followed or silently accepted (6.114941ms)
+✔ malformed pagination metadata is an explicit provider error (5.229779ms)
+✔ real HTTP timeout produces a bounded explicit error (103.667923ms)
+✔ GET uses Basic API-key auth and safely URL-encodes parameters (35.613401ms)
+✔ 429 Retry-After seconds are respected before a successful retry (2.722133ms)
+✔ HTTP-date Retry-After is supported without rounding down (1.477658ms)
+✔ malformed Retry-After is an error, not an immediate unsafe retry (0.711582ms)
+✔ long 429 delay is reported and shared cooldown prevents another call (1.121061ms)
+✔ repeated 429s stop after the exact configured number of attempts (1.385854ms)
+✔ total retry sleep never exceeds the configured wait budget (1.876315ms)
+✔ HTTP 401 is explicit and not retried (1.162208ms)
+✔ HTTP 403 is explicit and not retried (1.054715ms)
+✔ HTTP 404 is explicit and not retried (0.936169ms)
+✔ HTTP 400 is explicit and not retried (0.686555ms)
+✔ HTTP 500 is explicit and not retried (0.407444ms)
+✔ transient 503s retry with bounded exponential backoff (1.096313ms)
+✔ 503 also respects a provider Retry-After interval (1.324157ms)
+✔ network errors are sanitized and retried only within the configured limit (1.469964ms)
+✔ redirects are refused instead of forwarding credentials elsewhere (0.674472ms)
+✔ malformed JSON and non-JSON success fail explicitly (0.992666ms)
+✔ streaming response size is capped at 2 MiB (16.32786ms)
+✔ rate-limit headers are exposed without interpreting missing values as zero (1.417744ms)
+✔ malformed rate-limit headers do not become successful bogus metadata (1.3416ms)
+✔ documented Freshdesk whole-number decimal quota headers are accepted (1.0155ms)
+✔ request budget includes retry attempts (0.755976ms)
+✔ cancellation before execution sends no provider request (0.325098ms)
+✔ arbitrary URL and write-shaped endpoints are not allowlisted (0.267438ms)
+✔ concurrent caller requests are serialized per connector process (38.948268ms)
+✔ queue is bounded and overflow is returned as a retryable error (7.902338ms)
+✔ actual stdio handshake discovers exactly the intended read-only tool set (328.47406ms)
+✔ MCP auth_check executes real HTTP Basic authentication and returns no tickets (236.715309ms)
+✔ wrong key produces an MCP error flag and structured sanitized error (220.85031ms)
+✔ permission denied and missing tickets are distinguishable MCP failures (286.264515ms)
+✔ MCP rejects unknown keys, query injection and invalid IDs before HTTP (204.393596ms)
+✔ MCP rate-limit recovery works through the actual separate process (325.308275ms)
+✔ long Retry-After returns an explicit retry hint rather than blocking indefinitely (237.995905ms)
+✔ MCP output data preserves the untrusted-content boundary without contact fields (231.667188ms)
+✔ unknown or write tool names are not callable (202.848449ms)
+✔ startup fails explicitly when credentials are absent and keeps stdout protocol-only (179.595268ms)
+✔ metadata clearly identifies the mock and never exposes the API key (204.641077ms)
+✔ list requires a real UTC window and applies pagination defaults (4.382669ms)
+✔ list validates exact page and page-size boundaries (1.322534ms)
+✔ get rejects non-integer IDs, overflow, and unknown argument keys (1.100682ms)
+✔ structured query is quoted once and uses documented field names (1.633855ms)
+✔ search requires a filter and forbids an arbitrary provider query (0.475012ms)
+✔ search validates documented status, priority, and 10-page cap (1.813767ms)
+✔ search rejects injection or invalid tag: "payment' OR status:5" (0.729336ms)
+✔ search rejects injection or invalid tag: "payment\" OR priority:1" (0.218745ms)
+✔ search rejects injection or invalid tag: "payment:4" (0.481895ms)
+✔ search rejects injection or invalid tag: "payment\nOR status:2" (0.59955ms)
+✔ search rejects injection or invalid tag: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" (0.366577ms)
+✔ search rejects injection or invalid tag: "" (0.214838ms)
+✔ search validates real dates and ordered inclusive date ranges (0.504038ms)
+✔ output envelopes cannot disguise errors as successful empty results (2.589501ms)
+ℹ tests 87
+ℹ suites 0
+ℹ pass 87
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2941.039235
+
+> razorpay-freshdesk-mcp@1.0.0 demo
+> npm run build && node dist/demo/run.js
+
+
+> razorpay-freshdesk-mcp@1.0.0 build
+> tsc -p tsconfig.json
+
+PASS MCP handshake discovers five read-only tools with JSON schemas
+PASS Configuration reports demo mode without exposing the runtime key
+PASS API-key authentication succeeds after respecting 429 Retry-After
+PASS List pagination returns two distinct, correctly ordered pages
+PASS Structured search identifies exactly two urgent open payment tickets
+PASS Default projection omits descriptions and explicit contact/custom fields
+PASS Opt-in ticket text is marked untrusted; no write action is available
+PASS Missing ticket returns an explicit MCP error instead of empty success
+PASS Query injection is rejected before any provider request
+PASS Wrong API key is rejected once, without unsafe authentication retries
+PASS All provider operations are GET-only and diagnostics contain no key
+
+11/11 checks passed.
+Evidence written to artifacts/demo-report.json.
+Scope: local authenticated provider contract; not a live Freshdesk claim.
